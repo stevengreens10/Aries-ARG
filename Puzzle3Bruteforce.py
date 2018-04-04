@@ -6,22 +6,24 @@ session = requests.session()
 session.proxies = {'http':  'socks5h://localhost:9150',
                    'https': 'socks5h://localhost:9150'}
                    
+url = "http://irrgartenxhc4pur.onion/03-JZJUSRCFKJPUYT2P"
+
+headers = {'Host': "irrgartenxhc4pur.onion",
+           'User-Agent': "Mozilla/5.0 (Windows NT 6.1; rv:52.0) Gecko/20100101 Firefox/52.0",
+           'Accept': "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+           'Accept-Language': "en-US,en;q=0.5",
+           'Accept-Encoding': "gzip, deflate",
+           'Connection': "keep-alive",
+           'Upgrade-Insecure-Requests': "1",
+           'Referer': "http://irrgartenxhc4pur.onion/03-JZJUSRCFKJPUYT2P/"
+           }
+session.get(url, headers=headers).headers # Gets the page, setting php sess id
+                   
 def try_answer(answer):
-    url = "http://irrgartenxhc4pur.onion/03-JZJUSRCFKJPUYT2P"
     fields = {
         "♊": str(answer),
         "login": ""
     }
-    headers = {'Host': "irrgartenxhc4pur.onion",
-               'User-Agent': "Mozilla/5.0 (Windows NT 6.1; rv:52.0) Gecko/20100101 Firefox/52.0",
-               'Accept': "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-               'Accept-Language': "en-US,en;q=0.5",
-               'Accept-Encoding': "gzip, deflate",
-               'Connection': "keep-alive",
-               'Upgrade-Insecure-Requests': "1",
-               'Referer': "http://irrgartenxhc4pur.onion/03-JZJUSRCFKJPUYT2P/"
-               }
-    session.get(url, headers=headers).headers # Gets the page, setting php sess id
     response = session.post(url + "/index.php", data=fields).text # Gets the text of the page
     if("False." in response):
         return False
